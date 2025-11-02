@@ -34,6 +34,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;
+
         if (powerManager != null) {
             wakeLock = powerManager.newWakeLock(
                     PowerManager.PARTIAL_WAKE_LOCK,
@@ -92,15 +93,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         return false;
     }
 
+    // Método para enviar notificaciones urgentes (en segundo plano o cerrada)
     private void sendUrgentNotification(String title, String body, Map<String, String> data) {
+        Log.d("NAZGUL", "sendUrgentNotification: " );
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
         // Reaccionar al tipo de notificación
-        String type = data != null ? data.get("type") : null;
-        String clickAction = data != null ? data.get("clickAction") : null;
+        // String type = data != null ? data.get("type") : null;
+        // String clickAction = data != null ? data.get("clickAction") : null;
 
-        if (type != null) {
+       /* if (type != null) {
+            Log.d("NAZGUL", "type de notificación: " + type);
             switch (type) {
                 case "newList":
                     // Agregar datos específicos para nueva lista
@@ -114,12 +118,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     intent.putExtra("navigate_to", "notifications");
                     break;
             }
-        }
+        }*/
 
         // Manejar clickAction
-        if (clickAction != null) {
+        /*if (clickAction != null) {
             intent.putExtra("click_action", clickAction);
-        }
+        }*/
 
         if (data != null) {
             for (Map.Entry<String, String> entry : data.entrySet()) {

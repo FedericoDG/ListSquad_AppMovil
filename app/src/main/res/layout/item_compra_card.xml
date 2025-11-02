@@ -11,7 +11,8 @@
     card_view:cardUseCompatPadding="false"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:padding="8dp">
 
     <!-- Fondo degradado -->
     <LinearLayout

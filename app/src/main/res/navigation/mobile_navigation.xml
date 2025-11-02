@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/navigation_invitations"
         android:name="com.federicodg80.listly.ui.invitations.InvitationsFragment"
-        android:label="Notificaciones"
+        android:label="Invitaciones a listas"
         tools:layout="@layout/fragment_invitations" />
 
     <fragment

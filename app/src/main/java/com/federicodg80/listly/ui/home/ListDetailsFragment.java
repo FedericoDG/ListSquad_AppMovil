@@ -33,6 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ListDetailsFragment extends Fragment {
     private FragmentListDetailsBinding binding;
@@ -128,7 +129,15 @@ public class ListDetailsFragment extends Fragment {
             }
         });
 
-
+        viewModel.getIsEmpty().observe(getViewLifecycleOwner(), isEmpty -> {
+            if (isEmpty) {
+                binding.recyclerViewListDetails.setVisibility(View.GONE);
+                binding.textNoItems.setVisibility(View.VISIBLE);
+            } else {
+                binding.recyclerViewListDetails.setVisibility(View.VISIBLE);
+                binding.textNoItems.setVisibility(View.GONE);
+            }
+        });
 
        // Events
         binding.fabAddItem.setOnClickListener(v ->{
@@ -170,6 +179,9 @@ public class ListDetailsFragment extends Fragment {
         return root;
     }
 
+    // no se puede mover directamente al ViewModel sin romper la arquitectura MVVM, ya que el método
+    // manipula elementos de UI como el RecyclerView, el Adapter y el contexto (getContext()).
+    //  El ViewModel debe mantenerse independiente del ciclo de vida y la UI.
     private void attachSwipeHandler(RecyclerView recyclerView) {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -194,7 +206,7 @@ public class ListDetailsFragment extends Fragment {
                     iAdapter.notifyItemChanged(position);
                 } else if (direction == ItemTouchHelper.LEFT) {
                     // Mostrar diálogo de confirmación antes de eliminar
-                    new AlertDialog.Builder(getContext())
+                    new AlertDialog.Builder(requireContext())
                             .setTitle("Confirmar eliminación")
                             .setMessage("¿Estás seguro de que quieres eliminar este item?")
                             .setPositiveButton("Aceptar", (dialog, which) -> {

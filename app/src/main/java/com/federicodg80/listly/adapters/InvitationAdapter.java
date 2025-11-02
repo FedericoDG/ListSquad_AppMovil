@@ -22,14 +22,12 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public List<Invitation> invitations;
     private Context context;
     private LayoutInflater inflater;
-    private ListAdapter.OnItemClickListener clickListener;
 
     public InvitationAdapter(List<Invitation> invitations, Context context, LayoutInflater inflater) {
         this.invitations = invitations;
         this.context = context;
         this.inflater = inflater;
     }
-
 
     @NonNull
     @Override

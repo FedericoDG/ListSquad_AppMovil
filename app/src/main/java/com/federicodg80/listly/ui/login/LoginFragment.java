@@ -28,7 +28,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class LoginFragment extends Fragment {
-    private final String TAG = "LOGIN_FRAGMENT";
+
     private FragmentLoginBinding binding;
     private LoginFragmentViewModel viewModel;
     private GoogleSignInClient googleSignInClient;
@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment {
                     Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
                     handleSignInResult(task);
                 } else {
-                    Log.e(TAG, "Google sign-in failed with result code: " + result.getResultCode());
+                    Log.e("LoginFragment", "Google sign-in failed with result code: " + result.getResultCode());
                 }
             });
 
@@ -55,7 +55,9 @@ public class LoginFragment extends Fragment {
                 .build());
 
         viewModel.getError().observe(getViewLifecycleOwner(), msg -> {
-            Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+            binding.errorText.setText(msg);
+            binding.errorText.setVisibility(View.VISIBLE);
+            // Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
         });
 
         // Cambiar texto del botón
@@ -72,7 +74,7 @@ public class LoginFragment extends Fragment {
             binding.btnGoogle.setEnabled(!isLoging);
         });
 
-        // Si ya hay usuario logueado
+        // Si ya hay usuario logueado ingresa directamente
         viewModel.checkExistingUser();
 
         // Events
@@ -86,10 +88,9 @@ public class LoginFragment extends Fragment {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            Log.e(TAG, "handleSignInResult: " );
             viewModel.firebaseAuthWithGoogle(completedTask.getResult(ApiException.class));
         } catch (ApiException e) {
-            Log.e("DEBUG-MainActivity", "Error al iniciar sesión");
+            Log.e("LoginFragment", "Error al iniciar sesión");
         }
     }
 

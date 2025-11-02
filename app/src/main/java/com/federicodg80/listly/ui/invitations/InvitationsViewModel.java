@@ -1,7 +1,6 @@
 package com.federicodg80.listly.ui.invitations;
 
 import android.app.Application;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +18,7 @@ import java.util.List;
 public class InvitationsViewModel extends AndroidViewModel {
     private MutableLiveData<List<Invitation>> mInvitations = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isEmpty = new MutableLiveData<>(false);
 
     public InvitationsViewModel(@NonNull Application application) {
         super(application);
@@ -32,6 +32,10 @@ public class InvitationsViewModel extends AndroidViewModel {
         return mError;
     }
 
+    public LiveData<Boolean> getIsEmpty() {
+        return isEmpty;
+    }
+
     public void fetchInvitations() {
         String token = PreferencesManager.getToken(getApplication());
         InvitationRepository repository = new InvitationRepository();
@@ -39,8 +43,8 @@ public class InvitationsViewModel extends AndroidViewModel {
         repository.getInvitations(token, new InvitationRepository.GetInvitationsCallback() {
             @Override
             public void onSuccess(List<Invitation> response) {
-                Log.d("INVITATIONS", "onSuccess: " + response.size());
                 mInvitations.postValue(response);
+                if (response.isEmpty()) isEmpty.postValue(true);
             }
 
             @Override
@@ -51,7 +55,6 @@ public class InvitationsViewModel extends AndroidViewModel {
     }
 
     public void respondToInvitation(int listId, boolean accept) {
-        Log.d("LISTRESPONSE", "respondToInvitation: " + listId + " accept: " + accept);
         String token = PreferencesManager.getToken(getApplication());
         InvitationRepository repository = new InvitationRepository();
 

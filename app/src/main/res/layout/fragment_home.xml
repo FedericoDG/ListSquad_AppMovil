@@ -18,21 +18,21 @@
         style="?android:attr/progressBarStyleLarge"
         android:theme="@style/ThemeOverlay.MaterialComponents.Light" />
 
-    <!-- Texto "sin listas" -->
+    <!-- Texto "sin listas" (centrado en ambos ejes) -->
     <TextView
         android:id="@+id/textNoLists"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="32dp"
-        android:text="Aún no tienes listas.\nCrea una nueva lista para comenzar."
+        android:text="Aún no tenés listas.\n¡Creá una nueva para comenzar!"
         android:textSize="16sp"
         android:textColor="#808080"
         android:gravity="center"
         android:visibility="gone"
-        android:fontFamily="sans-serif" />
+        android:fontFamily="sans-serif-medium"
+        android:paddingHorizontal="32dp" />
 
-    <!-- Contenedor principal (se ocultará mientras carga) -->
+    <!-- Contenedor principal -->
     <LinearLayout
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
@@ -41,7 +41,6 @@
         android:paddingHorizontal="8dp"
         android:visibility="gone">
 
-        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewLists"
             android:layout_width="match_parent"

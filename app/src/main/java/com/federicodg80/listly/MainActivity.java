@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                // Callback vacío (si pongo null se queja)
+                Log.d("MainActivity", "Permiso de notificaciones concedido: " + isGranted);
             });
 
     private final BroadcastReceiver alertReceiver = new BroadcastReceiver() {
@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
             String body = intent.getStringExtra("body");
 
             Alerter.create(MainActivity.this)
-                    .setTitle(title != null ? title : "")
-                    .setText(body != null ? body : "")
+                    .setTitle(title)
+                    .setText(body)
                     .setBackgroundColorRes(R.color.purple_500)
-                    .setDuration(4000)
+                    .setDuration(3000)
                     .setOnClickListener(v -> {
                         // Aquí navegamos usando los extras de la notificación
-                        handleNavigationIntent(intent);
+                        viewModel.handleNavigationIntent(intent, navController);
                     })
                     .show();
         }
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.handlePaymentResult(intent);
 
         // Después, manejamos navegación por notificaciones push
-        handleNavigationIntent(intent);
+        viewModel.handleNavigationIntent(intent, navController);
     }
 
     @Override
@@ -76,17 +76,9 @@ public class MainActivity extends AppCompatActivity {
         // Forzar modo claro (desactivar modo oscuro)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        viewModel.getPaymentStatus().observe(this, status -> {
-            if (status != null) {
-                Bundle args = new Bundle();
-                args.putString("payment_status", status);
-                navController.navigate(R.id.navigation_payment_result, args);
-            }
-        });
 
 
         // Iniciar Foreground Service para mantener la app viva
@@ -99,8 +91,16 @@ public class MainActivity extends AppCompatActivity {
         // Solicitar permiso de notificaciones en Android 13+
         askNotificationPermission();
 
+        // Observar estado de pago
+        viewModel.getPaymentStatus().observe(this, status -> {
+           /* if (status != null) {*/
+                Bundle args = new Bundle();
+                args.putString("payment_status", status);
+                navController.navigate(R.id.navigation_payment_result, args);
+         /*   }*/
+        });
         // Manejar intención de navegación si existe
-        handleNavigationIntent(getIntent());
+        viewModel.handleNavigationIntent(getIntent(), navController);
     }
 
     @Override
@@ -149,43 +149,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             Log.d("MainActivity", "Android < 13, no se necesita solicitar permiso");
-        }
-    }
-
-    private void handleNavigationIntent(@NonNull Intent intent) {
-        // if (intent == null || navController == null) return;
-
-        String navigateTo = intent.getStringExtra("navigate_to");
-        String type = intent.getStringExtra("type");
-
-        // Primero intentamos navegar según navigate_to
-        if (navigateTo != null) {
-            switch (navigateTo) {
-                case "profile":
-                    navController.navigate(R.id.navigation_profile);
-                    return;
-                case "tasks":
-                    navController.navigate(R.id.navigation_home);
-                    return;
-                case "invitations":
-                    navController.navigate(R.id.navigation_invitations);
-                    return;
-            }
-        }
-
-        // Si navigateTo es null, usamos type
-        if (type != null) {
-            switch (type) {
-                case "profile":
-                    navController.navigate(R.id.navigation_profile);
-                    break;
-                case "tasks":
-                    navController.navigate(R.id.navigation_home);
-                    break;
-                case "invitations":
-                    navController.navigate(R.id.navigation_invitations);
-                    break;
-            }
         }
     }
 }

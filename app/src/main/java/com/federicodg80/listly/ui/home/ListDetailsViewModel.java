@@ -33,6 +33,7 @@ public class ListDetailsViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Item>> mItems = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<UserDetailsResponse> mUserDetails = new MutableLiveData<>();
     private final MutableLiveData<Boolean> enableAddCollaboratorBtn = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>(false);
     private boolean hasFreeSubscription = true;
 
     public ListDetailsViewModel(@NonNull Application application) {
@@ -54,6 +55,9 @@ public class ListDetailsViewModel extends AndroidViewModel {
 
     public LiveData<Boolean> getEnableAddCollaboratorBtn() {
         return enableAddCollaboratorBtn;
+    }
+    public LiveData<Boolean> getIsEmpty() {
+        return isEmpty;
     }
 
     public void loadListDetails(Bundle bundle) {
@@ -92,6 +96,8 @@ public class ListDetailsViewModel extends AndroidViewModel {
                         if(response.getCollaborators() != null && !response.getCollaborators().isEmpty()){
                             mCollaborators.postValue(response.getCollaborators());
                         }
+
+                        isEmpty.postValue(response.getItems() == null || response.getItems().isEmpty());
 
                         mItems.postValue(response.getItems());
 

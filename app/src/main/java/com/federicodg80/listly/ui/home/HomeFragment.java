@@ -1,29 +1,19 @@
-// java
 package com.federicodg80.listly.ui.home;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.federicodg80.listly.R;
 import com.federicodg80.listly.adapters.ListAdapter;
 import com.federicodg80.listly.databinding.FragmentHomeBinding;
-import com.federicodg80.listly.models.TaskList;
-
-import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -62,6 +52,16 @@ public class HomeFragment extends Fragment {
                 binding.progressBar.setVisibility(View.GONE);
                 binding.contentLayout.setVisibility(View.VISIBLE);
                 binding.fabAddList.setVisibility(View.VISIBLE);
+            }
+        });
+
+        viewModel.getIsEmpty().observe(getViewLifecycleOwner(), isEmpty -> {
+            if (isEmpty != null && isEmpty) {
+                binding.textNoLists.setVisibility(View.VISIBLE);
+                binding.recyclerViewLists.setVisibility(View.GONE);
+            } else {
+                binding.textNoLists.setVisibility(View.GONE);
+                binding.recyclerViewLists.setVisibility(View.VISIBLE);
             }
         });
 

@@ -2,7 +2,6 @@ package com.federicodg80.listly.ui.login;
 
 import android.app.Application;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,7 +21,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginFragmentViewModel extends AndroidViewModel {
-    private static final String TAG = "LoginFragmentViewModel";
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private final MutableLiveData<Boolean> mIscheckExistingUser = new MutableLiveData<>(true);
     private final MutableLiveData<Boolean> mIsLoging = new MutableLiveData<>(false);
@@ -109,14 +107,13 @@ public class LoginFragmentViewModel extends AndroidViewModel {
 
                         @Override
                         public void onError(String error) {
-                            mError.postValue("Error en login al backend: " + error);
+                            mError.postValue("Error al enviar datos del usuario. El servidor no respondió");
                             mIsLoging.postValue(false);
                         }
                     });
                 })
                 .addOnFailureListener(e -> {
                     mError.postValue("No se pudo obtener el token FCM: " + e.getMessage());
-                    Log.e(TAG, "No se pudo obtener el token FCM: " + e.getMessage());
                 });
     }
 
@@ -124,7 +121,6 @@ public class LoginFragmentViewModel extends AndroidViewModel {
         Application app = getApplication();
         Intent serviceIntent = new Intent(app, KeepAliveService.class);
         app.startForegroundService(serviceIntent);
-        Log.d(TAG, "KeepAliveService iniciado tras login");
     }
 
     private void navigateToMain(){
@@ -137,7 +133,6 @@ public class LoginFragmentViewModel extends AndroidViewModel {
             try {
                 app.startActivity(intent);
             } catch (Exception e) {
-                Log.e(TAG, "No se pudo iniciar MainActivity desde ViewModel: " + e.getMessage(), e);
                 mError.postValue("No se pudo abrir la app: " + e.getMessage());
             }
         });

@@ -53,7 +53,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.tvDescription.setText(list.getDescription());
         holder.tvIcon.setText(list.getIcon());
 
-        holder.containerGradient.setBackgroundResource(R.drawable.bg_card_tareas);
+        holder.containerGradient.setBackgroundResource(R.drawable.bg_card_gradient);
         //  bg_card_objetivos
         // bg_card_ideas
         // bg_card_default

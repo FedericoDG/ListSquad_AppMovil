@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.federicodg80.listly.R;
 import com.federicodg80.listly.adapters.InvitationAdapter;
 import com.federicodg80.listly.databinding.FragmentInvitationsBinding;
 import com.federicodg80.listly.models.Invitation;
@@ -42,8 +44,14 @@ public class InvitationsFragment extends Fragment {
             binding.recyclerViewInvitations.setAdapter(adapter);
         });
 
-        viewModel.getError().observe(getViewLifecycleOwner(), error -> {
-
+        viewModel.getIsEmpty().observe(getViewLifecycleOwner(), isEmpty -> {
+            if (isEmpty) {
+                binding.textNoInvitations.setVisibility(View.VISIBLE);
+                binding.recyclerViewInvitations.setVisibility(View.GONE);
+            } else {
+                binding.textNoInvitations.setVisibility(View.GONE);
+                binding.recyclerViewInvitations.setVisibility(View.VISIBLE);
+            }
         });
 
         viewModel.fetchInvitations();
@@ -53,6 +61,9 @@ public class InvitationsFragment extends Fragment {
         return root;
     }
 
+    // no se puede mover directamente al ViewModel sin romper la arquitectura MVVM, ya que el método
+    // manipula elementos de UI como el RecyclerView, el Adapter y el contexto (getContext()).
+    //  El ViewModel debe mantenerse independiente del ciclo de vida y la UI.
     private void attachSwipeHandler(RecyclerView recyclerView) {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -75,6 +86,8 @@ public class InvitationsFragment extends Fragment {
                     // Aceptar invitación
                     viewModel.respondToInvitation(item.getInvitationId(), true);
                     adapter.notifyItemChanged(position);
+                    // Navegar a la lista aceptada
+                    Navigation.findNavController(requireView()).navigate(R.id.navigation_home);
                 } else if (direction == ItemTouchHelper.LEFT) {
                     //Rechazar invitación
                     viewModel.respondToInvitation(item.getInvitationId(), false);

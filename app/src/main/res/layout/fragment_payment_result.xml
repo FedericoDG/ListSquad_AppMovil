@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/paymentStatusContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp">
+
+        <!-- Éxito -->
+        <LinearLayout
+            android:id="@+id/layoutSuccess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_payment_success"
+                app:tint="@color/green_500" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¡Pago exitoso!"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/green_700"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- Pendiente -->
+        <LinearLayout
+            android:id="@+id/layoutPending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_payment_pending"
+                app:tint="@color/amber_500" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pago pendiente"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/amber_700"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- Error -->
+        <LinearLayout
+            android:id="@+id/layoutError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_payment_error"
+                app:tint="@color/red_500" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Error en el pago"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/red_500"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- Espacio -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <!-- Texto inferior -->
+        <TextView
+            android:id="@+id/textViewRedirect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Redirigiendo al perfil en 5 segundos..."
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="12dp" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_collaborator"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="0dp"
+    android:layout_marginHorizontal="0dp"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="1dp"
+    android:backgroundTint="@android:color/white"
+    android:clickable="false"
+    android:focusable="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white">
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/textViewCollaboratorEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="10sp"
+            android:textColor="#333333" />
+
+        <!-- Botón X -->
+        <TextView
+            android:id="@+id/textViewRemoveCollaborator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✕"
+            android:textSize="15sp"
+            android:textColor="#DD3333"
+            android:paddingHorizontal="4dp"
+            android:enabled="false"
+            android:paddingVertical="2dp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

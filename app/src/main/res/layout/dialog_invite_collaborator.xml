@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="12dp">
+
+    <!-- EditText del mismo alto que el botón -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayoutInviteEmail"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_weight="1"
+        android:hint="Email del colaborador"
+        app:boxBackgroundMode="filled"
+        app:boxStrokeColor="@color/purple_700"
+        android:layout_gravity="center_vertical">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etInviteEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:gravity="center_vertical"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botón compacto solo con ícono -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSendInvite"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        app:icon="@drawable/ic_send"
+        app:iconTint="@color/white"
+        app:backgroundTint="@color/purple_700"
+        app:cornerRadius="8dp"
+        android:contentDescription="Enviar invitación"/>
+</LinearLayout>

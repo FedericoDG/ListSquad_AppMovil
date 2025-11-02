@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "579079772527",
+    "project_id": "android---listly",
+    "storage_bucket": "android---listly.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579079772527:android:6ec6d9155bcaf7bd69709a",
+        "android_client_info": {
+          "package_name": "com.federicodg80.listly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579079772527-8nusi4v2h744dsm6mao91mqfhinc042s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtU4O4lPxDUi4OD5o-TmXjn_VIJDV8Jv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579079772527-8nusi4v2h744dsm6mao91mqfhinc042s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

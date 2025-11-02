@@ -1,0 +1,19 @@
+# Gradle
+.gradle/
+gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Android Studio
+.idea/
+local.properties
+*.iml
+
+# Native build cache
+.cxx/
+
+# Misc
+.DS_Store
+.env

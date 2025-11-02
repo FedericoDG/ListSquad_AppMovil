@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    tools:context=".ui.home.HomeFragment">
+
+    <!-- Spinner de carga -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        android:indeterminate="true"
+        style="?android:attr/progressBarStyleLarge"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Light" />
+
+    <!-- Texto "sin listas" -->
+    <TextView
+        android:id="@+id/textNoLists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="32dp"
+        android:text="Aún no tienes listas.\nCrea una nueva lista para comenzar."
+        android:textSize="16sp"
+        android:textColor="#808080"
+        android:gravity="center"
+        android:visibility="gone"
+        android:fontFamily="sans-serif" />
+
+    <!-- Contenedor principal (se ocultará mientras carga) -->
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp"
+        android:visibility="gone">
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewLists"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"
+            tools:listitem="@layout/list_card" />
+    </LinearLayout>
+
+    <!-- FAB flotante -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="70dp"
+        android:contentDescription="Agregar lista"
+        app:srcCompat="@drawable/ic_add_list"
+        app:backgroundTint="@color/purple_700"
+        app:tint="@color/white"
+        app:elevation="8dp"
+        style="@style/SquareFab"
+        android:visibility="gone" />
+
+</FrameLayout>

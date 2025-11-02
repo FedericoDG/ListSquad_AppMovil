@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">List Squad</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="default_web_client_id">579079772527-q0hv0dnqamce5v2tj3c3jko83529nlei.apps.googleusercontent.com</string>
+
+    <!-- Strings añadidas para fragment_login.xml -->
+    <string name="logo_description">Logo List Squad</string>
+    <string name="login_subtitle">Listas colaborativas para vos y tus amigos</string>
+</resources>

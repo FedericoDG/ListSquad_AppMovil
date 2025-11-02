@@ -2,25 +2,21 @@
 .gradle/
 gradle/
 build/
-**/build/
-local.properties
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
 
 # Android Studio
 .idea/
+local.properties
 *.iml
-captures/
-.externalNativeBuild/
+
+# Native build cache
 .cxx/
 
-# OS
+# Misc
 .DS_Store
-Thumbs.db
+.env
 
-# Keystore
-*.jks
-*.keystore
-
-# Otros
-*.log
-
-goodle-services.json
+# Sensitive files
+google-services.json

@@ -44,9 +44,8 @@ public class HomeFragment extends Fragment {
         });
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            if (isLoading != null && isLoading) {
+            if (isLoading) {
                 binding.progressBar.setVisibility(View.VISIBLE);
-                binding.fabAddList.setVisibility(View.GONE);
                 binding.contentLayout.setVisibility(View.GONE);
             } else {
                 binding.progressBar.setVisibility(View.GONE);
@@ -55,8 +54,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         viewModel.getIsEmpty().observe(getViewLifecycleOwner(), isEmpty -> {
-            if (isEmpty != null && isEmpty) {
+            if (isEmpty) {
                 binding.textNoLists.setVisibility(View.VISIBLE);
                 binding.recyclerViewLists.setVisibility(View.GONE);
             } else {
@@ -69,6 +69,16 @@ public class HomeFragment extends Fragment {
         binding.fabAddList.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_navigation_home_to_createNewListFragment)
         );
+
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            // Recargar datos
+            viewModel.loadLists();
+
+            // Detener animación
+            binding.swipeRefresh.postDelayed(() -> {
+                binding.swipeRefresh.setRefreshing(false);
+            }, 1000);
+        });
 
         // ya se que no le gustan los if en el fragement, pero necesito evitar recargas dobles
         if (viewModel.getLists().getValue() == null) {

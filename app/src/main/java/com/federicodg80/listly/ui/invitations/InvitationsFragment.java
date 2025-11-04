@@ -54,6 +54,16 @@ public class InvitationsFragment extends Fragment {
             }
         });
 
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            // Recargar datos
+            viewModel.fetchInvitations();
+
+            // Detener animación
+            binding.swipeRefresh.postDelayed(() -> {
+                binding.swipeRefresh.setRefreshing(false);
+            }, 1000);
+        });
+
         viewModel.fetchInvitations();
 
         attachSwipeHandler(binding.recyclerViewInvitations);

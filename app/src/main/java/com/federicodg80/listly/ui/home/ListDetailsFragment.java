@@ -172,6 +172,16 @@ public class ListDetailsFragment extends Fragment {
             dialog.show();
         });
 
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            // Recargar datos
+            viewModel.loadListDetails(requireArguments());
+
+            // Detener animación
+            binding.swipeRefresh.postDelayed(() -> {
+                binding.swipeRefresh.setRefreshing(false);
+            }, 1000);
+        });
+
         viewModel.loadListDetails(getArguments());
 
         attachSwipeHandler(binding.recyclerViewListDetails);

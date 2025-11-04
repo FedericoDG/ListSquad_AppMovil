@@ -15,7 +15,7 @@ import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
     private final MutableLiveData<List<TaskList>> mLists = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>(false);
 
     public HomeViewModel(@NonNull Application application) {
@@ -35,6 +35,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void loadLists(){
+        isLoading.postValue(true);
         String token = PreferencesManager.getToken(getApplication());
 
         ListRepository repository = new ListRepository();

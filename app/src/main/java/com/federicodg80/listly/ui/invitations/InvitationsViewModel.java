@@ -19,6 +19,7 @@ public class InvitationsViewModel extends AndroidViewModel {
     private MutableLiveData<List<Invitation>> mInvitations = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
     private MutableLiveData<Boolean> isEmpty = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
     public InvitationsViewModel(@NonNull Application application) {
         super(application);
@@ -36,7 +37,12 @@ public class InvitationsViewModel extends AndroidViewModel {
         return isEmpty;
     }
 
+    public LiveData<Boolean> getIsLoading() {
+        return isLoading;
+    }
+
     public void fetchInvitations() {
+        isLoading.postValue(true);
         String token = PreferencesManager.getToken(getApplication());
         InvitationRepository repository = new InvitationRepository();
 
@@ -44,11 +50,13 @@ public class InvitationsViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(List<Invitation> response) {
                 mInvitations.postValue(response);
+                isLoading.postValue(false);
                 if (response.isEmpty()) isEmpty.postValue(true);
             }
 
             @Override
             public void onError(String error) {
+                isLoading.postValue(false);
                 mError.postValue(error);
             }
         });

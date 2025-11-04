@@ -41,6 +41,12 @@
         android:paddingHorizontal="8dp"
         android:visibility="gone">
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewLists"
             android:layout_width="match_parent"
@@ -48,6 +54,8 @@
             android:clipToPadding="false"
             android:paddingBottom="80dp"
             tools:listitem="@layout/list_card" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 
     <!-- FAB flotante -->

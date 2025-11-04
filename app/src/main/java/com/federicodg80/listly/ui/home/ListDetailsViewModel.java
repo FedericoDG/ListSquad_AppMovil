@@ -34,6 +34,7 @@ public class ListDetailsViewModel extends AndroidViewModel {
     private final MutableLiveData<UserDetailsResponse> mUserDetails = new MutableLiveData<>();
     private final MutableLiveData<Boolean> enableAddCollaboratorBtn = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private boolean hasFreeSubscription = true;
 
     public ListDetailsViewModel(@NonNull Application application) {
@@ -60,13 +61,17 @@ public class ListDetailsViewModel extends AndroidViewModel {
         return isEmpty;
     }
 
+    public LiveData<Boolean> getIsLoading() {
+        return isLoading;
+    }
+
     public void loadListDetails(Bundle bundle) {
         int listId = bundle.getInt("listId", -1);
         String token = PreferencesManager.getToken(getApplication());
 
         // Primero obtener los detalles del usuario
         UserRepository userRepository = new UserRepository();
-        Log.d("ListDetailsVM", "Calling UserRepository.getMe");
+        isLoading.postValue(true);
         userRepository.getMe(token, new UserRepository.GetMeCallback() {
             @Override
             public void onSuccess(UserDetailsResponse response) {
@@ -80,7 +85,6 @@ public class ListDetailsViewModel extends AndroidViewModel {
                 listRepository.getList(token, listId, new ListRepository.GetListCallback() {
                     @Override
                     public void onSuccess(TaskListDetails response) {
-                        Log.d("ListDetailsVM", "getList onSuccess: itemsCount=" + (response != null && response.getItems() != null ? response.getItems().size() : 0));
                         mList.postValue(new TaskList(response.getListId(), response.getTitle(), response.getDescription(), response.getTitle(), response.getOwnerUid()));
                         if (response.getOwner() != null) {
                             mOwner.postValue(new User(
@@ -91,6 +95,8 @@ public class ListDetailsViewModel extends AndroidViewModel {
                                     response.getOwner().getFcmToken())
                             );
                         }
+
+                        isLoading.postValue(false);
 
                         if(response.getCollaborators() != null && !response.getCollaborators().isEmpty()){
                             mCollaborators.postValue(response.getCollaborators());
@@ -109,6 +115,7 @@ public class ListDetailsViewModel extends AndroidViewModel {
 
                     @Override
                     public void onError(String error) {
+                        isLoading.postValue(false);
                         Toast.makeText(getApplication(), "Error al obtener la lista: " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -116,11 +123,10 @@ public class ListDetailsViewModel extends AndroidViewModel {
 
             @Override
             public void onError(String error) {
+                isLoading.postValue(false);
                 Toast.makeText(getApplication(), "Error al obtener datos del usuario: " + error, Toast.LENGTH_SHORT).show();
             }
         });
-
-        Log.d("listid", "loadListDetails: " + listId);
 
     }
 

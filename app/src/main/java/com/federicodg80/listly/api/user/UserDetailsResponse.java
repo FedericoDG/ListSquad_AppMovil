@@ -14,12 +14,11 @@ public class UserDetailsResponse extends User {
             String email,
             String displayName,
             String photoUrl,
-            String providerId,
             String fcmToken,
             Subscription subscription,
             Settings settings
     ) {
-        super(UId, email, displayName, photoUrl, providerId, fcmToken);
+        super(UId, email, displayName, photoUrl, fcmToken);
         Subscription = subscription;
         Settings = settings;
     }

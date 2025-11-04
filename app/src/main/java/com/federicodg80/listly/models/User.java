@@ -7,15 +7,13 @@ public class User {
     private final String Email;
     private final String DisplayName;
     private final String PhotoUrl;
-    private final String ProviderId;
     private final String FcmToken;
 
-    public User(String UId, String email, String displayName, String photoUrl, String providerId, String fcmToken) {
+    public User(String UId, String email, String displayName, String photoUrl, String fcmToken) {
         this.UId = UId;
         this.Email = email;
         this.DisplayName = displayName;
         this.PhotoUrl = photoUrl;
-        this.ProviderId = providerId;
         this.FcmToken = fcmToken;
     }
 
@@ -35,9 +33,6 @@ public class User {
         return PhotoUrl;
     }
 
-    public String getProviderId() {
-        return ProviderId;
-    }
 
     public String getFcmToken() {
         return FcmToken;
@@ -52,7 +47,6 @@ public class User {
                 ", email='" + Email + '\'' +
                 ", displayName='" + DisplayName + '\'' +
                 ", photoUrl='" + PhotoUrl + '\'' +
-                ", providerId='" + ProviderId + '\'' +
                 ", fcmToken='" + FcmToken + '\'' +
                 '}';
     }

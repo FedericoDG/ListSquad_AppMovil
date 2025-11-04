@@ -88,7 +88,6 @@ public class ListDetailsViewModel extends AndroidViewModel {
                                     response.getOwner().getEmail(),
                                     response.getOwner().getDisplayName(),
                                     response.getOwner().getPhotoUrl(),
-                                    response.getOwner().getProviderId(),
                                     response.getOwner().getFcmToken())
                             );
                         }

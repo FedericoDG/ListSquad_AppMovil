@@ -90,7 +90,7 @@ public class AddItemToListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String[] tipos = new String[] { "Kg", "g", "l", "ml", "cm3", "unidad/es", "docena/s", "lata/s", "paquete/s", "caja/s", "atado/s", "bolsa/s", "sin unidad" };
+        String[] tipos = new String[] { "Kg.", "gr.", "Lts.", "cm3", "unidad/es", "docena/s", "lata/s", "paquete/s", "caja/s", "atado/s", "bolsa/s", "sin unidad" };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),

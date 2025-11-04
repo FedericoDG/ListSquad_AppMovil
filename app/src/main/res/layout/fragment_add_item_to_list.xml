@@ -72,7 +72,7 @@
                     android:gravity="center_vertical"
                     android:paddingHorizontal="12dp"
                     android:inputType="none"
-                    android:text="Kg" />
+                    android:text="Kg." />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

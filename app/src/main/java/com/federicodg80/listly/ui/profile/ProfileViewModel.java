@@ -26,6 +26,7 @@ import com.federicodg80.listly.utils.PreferencesManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class ProfileViewModel extends AndroidViewModel {
     private static final String TAG = "ProfileFragmentVM";
@@ -115,12 +116,12 @@ public class ProfileViewModel extends AndroidViewModel {
         repository.updateInvitationSetting(token, state, new SettingsRepository.UpdateSettingsCallback() {
             @Override
             public void onSuccess(UpdateSettingsResponse response) {
-                Toast.makeText(getApplication(), "Configuración Actualizada", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Configuración actualizada",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), "Error al actualizar la configuración: " + error, Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al actualizar la configuración: " + error,FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
@@ -132,12 +133,12 @@ public class ProfileViewModel extends AndroidViewModel {
         repository.updateItemAddedSetting(token, state, new SettingsRepository.UpdateSettingsCallback() {
             @Override
             public void onSuccess(UpdateSettingsResponse response) {
-                Toast.makeText(getApplication(), "Configuración Actualizada", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Configuración actualizada",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), "Error al actualizar la configuración: " + error, Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al actualizar la configuración: " + error,FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
@@ -149,12 +150,12 @@ public class ProfileViewModel extends AndroidViewModel {
         repository.updateItemStatusChangedSetting(token, state, new SettingsRepository.UpdateSettingsCallback() {
             @Override
             public void onSuccess(UpdateSettingsResponse response) {
-                Toast.makeText(getApplication(), "Configuración Actualizada", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Configuración actualizada",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), "Error al actualizar la configuración: " + error, Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al actualizar la configuración: " + error,FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
@@ -166,12 +167,12 @@ public class ProfileViewModel extends AndroidViewModel {
         repository.updateItemDeletedSetting(token, state, new SettingsRepository.UpdateSettingsCallback() {
             @Override
             public void onSuccess(UpdateSettingsResponse response) {
-                Toast.makeText(getApplication(), "Configuración Actualizada", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Configuración actualizada",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), "Error al actualizar la configuración: " + error, Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al actualizar la configuración: " + error,FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }

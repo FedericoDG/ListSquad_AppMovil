@@ -2,8 +2,6 @@ package com.federicodg80.listly.ui.home;
 
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,6 +20,7 @@ import com.federicodg80.listly.repository.ItemRepository;
 import com.federicodg80.listly.repository.ListRepository;
 import com.federicodg80.listly.repository.UserRepository;
 import com.federicodg80.listly.utils.PreferencesManager;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -116,7 +115,7 @@ public class ListDetailsViewModel extends AndroidViewModel {
                     @Override
                     public void onError(String error) {
                         isLoading.postValue(false);
-                        Toast.makeText(getApplication(), "Error al obtener la lista: " + error, Toast.LENGTH_SHORT).show();
+                        FancyToast.makeText(getApplication(),"Error al obtener la lista: " + error,FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     }
                 });
             }
@@ -124,7 +123,7 @@ public class ListDetailsViewModel extends AndroidViewModel {
             @Override
             public void onError(String error) {
                 isLoading.postValue(false);
-                Toast.makeText(getApplication(), "Error al obtener datos del usuario: " + error, Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al obtener datos del usuario: " + error,FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
 
@@ -152,7 +151,7 @@ public class ListDetailsViewModel extends AndroidViewModel {
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), "Error cambiar el estado", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al cambiar el estado",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
@@ -164,12 +163,12 @@ public class ListDetailsViewModel extends AndroidViewModel {
         itemRepository.deleteItem(token, itemId, new ItemRepository.ToggleCompletedCallback() {
             @Override
             public void onSuccess(Item response) {
-                Toast.makeText(getApplication(), "Item Eliminado", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Item eliminado",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), "Error al eliminar item", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al eliminar el ítem",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
@@ -183,18 +182,18 @@ public class ListDetailsViewModel extends AndroidViewModel {
 
             @Override
             public void onSuccess(TaskListMessage response) {
-                Toast.makeText(getApplication(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),response.getMessage(),FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
             }
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), "Error al eliminar colaborador", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error al eliminar el colaborador",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
 
     public void inviteCollaborator(Bundle bundle, String collaboratorEmail) {
         if (!isAValidEmail(collaboratorEmail)) {
-            Toast.makeText(getApplication(), "Correo electrónico no válido", Toast.LENGTH_SHORT).show();
+            FancyToast.makeText(getApplication(),"Correo electrónico no válido",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
@@ -205,12 +204,12 @@ public class ListDetailsViewModel extends AndroidViewModel {
         repository.sendInvitation(token, listId, collaboratorEmail, new InvitationRepository.SendInvitationCallback() {
             @Override
             public void onSuccess(Invitation response) {
-                Toast.makeText(getApplication(), "Invitación enviada", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Invitación enviada",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getApplication(), error, Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),"Error: " + error,FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }

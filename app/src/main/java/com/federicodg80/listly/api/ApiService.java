@@ -34,9 +34,6 @@ public interface ApiService {
     @POST("auth/register")
     Call<LoginResponse> login(@Body LoginRequest request);
 
-/*    @POST("auth/reboot")
-    Call<RebootResponse> reboot(@Header("Authorization") String token, @Body RebootRequest request);*/
-
     // User API
     @GET("users/me")
     Call<UserDetailsResponse> getMe(@Header("Authorization") String token);

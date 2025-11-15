@@ -2,7 +2,7 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services") // ✅ acá sí se aplica
+    id("com.google.gms.google-services")
 }
 
 val envFile = rootProject.file(".env")
@@ -83,4 +83,5 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.tapadoo:Alerter:7.2.4")
+    implementation("io.github.shashank02051997:FancyToast:2.0.2")
 }

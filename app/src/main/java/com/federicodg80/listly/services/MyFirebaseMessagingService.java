@@ -99,32 +99,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        // Reaccionar al tipo de notificación
-        // String type = data != null ? data.get("type") : null;
-        // String clickAction = data != null ? data.get("clickAction") : null;
-
-       /* if (type != null) {
-            Log.d("NAZGUL", "type de notificación: " + type);
-            switch (type) {
-                case "newList":
-                    // Agregar datos específicos para nueva lista
-                    intent.putExtra("navigate_to", "lists");
-                    intent.putExtra("show_new_list", true);
-                    break;
-                case "taskAssigned":
-                    intent.putExtra("navigate_to", "tasks");
-                    break;
-                case "reminder":
-                    intent.putExtra("navigate_to", "notifications");
-                    break;
-            }
-        }*/
-
-        // Manejar clickAction
-        /*if (clickAction != null) {
-            intent.putExtra("click_action", clickAction);
-        }*/
-
         if (data != null) {
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 intent.putExtra(entry.getKey(), entry.getValue());

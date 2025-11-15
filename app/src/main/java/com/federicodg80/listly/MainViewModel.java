@@ -9,12 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
 
 public class MainViewModel extends ViewModel {
     private final MutableLiveData<String> paymentStatus = new MutableLiveData<>();
+    private final MutableLiveData<Integer> refreshListEvent = new MutableLiveData<>();
 
     public LiveData<String> getPaymentStatus() {
         return paymentStatus;
+    }
+
+    public LiveData<Integer> getRefreshListEvent() {
+        return refreshListEvent;
     }
 
     public void handlePaymentResult(Intent intent) {
@@ -56,9 +63,24 @@ public class MainViewModel extends ViewModel {
                 case "deleted_item":
                 case "added_item":
                     String listId = intent.getStringExtra("listId");
-                    Log.d("NAZGUL", "handleNavigationIntent: " + listId);
+                    int targetListId = Integer.parseInt(listId);
+
                     Bundle args = new Bundle();
-                    args.putInt("listId", Integer.parseInt(listId));
+                    args.putInt("listId", targetListId);
+
+                    NavBackStackEntry currentEntry = navController.getCurrentBackStackEntry();
+
+                    if (currentEntry != null &&
+                            currentEntry.getDestination().getId() == R.id.navigation_list_details &&
+                            currentEntry.getArguments() != null &&
+                            currentEntry.getArguments().getInt("listId") == targetListId) {
+
+                        refreshListEvent.setValue(targetListId);
+
+                        return;
+                    }
+
+                    // Navegar
                     navController.navigate(R.id.navigation_list_details, args);
                     break;
             }

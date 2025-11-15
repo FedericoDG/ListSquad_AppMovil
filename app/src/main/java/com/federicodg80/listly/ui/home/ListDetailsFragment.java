@@ -20,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.federicodg80.listly.MainViewModel;
 import com.federicodg80.listly.R;
 import com.federicodg80.listly.adapters.CollaboratorAdapter;
 import com.federicodg80.listly.adapters.ItemCompraAdapter;
@@ -40,11 +40,13 @@ public class ListDetailsFragment extends Fragment {
     private ListDetailsViewModel viewModel;
     private ItemCompraAdapter iAdapter;
     private CollaboratorAdapter cAdapter;
+    private MainViewModel mainViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ListDetailsViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         binding = FragmentListDetailsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -185,6 +187,10 @@ public class ListDetailsFragment extends Fragment {
         viewModel.loadListDetails(getArguments());
 
         attachSwipeHandler(binding.recyclerViewListDetails);
+
+        mainViewModel.getRefreshListEvent().observe(getViewLifecycleOwner(), listId -> {
+                viewModel.loadListDetails(getArguments());
+        });
 
         return root;
     }

@@ -1,6 +1,5 @@
 package com.federicodg80.listly.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -57,7 +55,6 @@ public class LoginFragment extends Fragment {
         viewModel.getError().observe(getViewLifecycleOwner(), msg -> {
             binding.errorText.setText(msg);
             binding.errorText.setVisibility(View.VISIBLE);
-            // Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
         });
 
         // Cambiar texto del botón

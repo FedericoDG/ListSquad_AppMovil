@@ -1,7 +1,6 @@
 package com.federicodg80.listly.ui.invitations;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -12,6 +11,7 @@ import com.federicodg80.listly.api.invitation.InvitationRespondResponse;
 import com.federicodg80.listly.models.Invitation;
 import com.federicodg80.listly.repository.InvitationRepository;
 import com.federicodg80.listly.utils.PreferencesManager;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
 
@@ -70,7 +70,7 @@ public class InvitationsViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(InvitationRespondResponse response) {
                 String message = accept ? "Invitacion aceptada" : "Invitacion rechazada";
-                Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplication(),message, FancyToast.LENGTH_LONG,FancyToast.DEFAULT,true).show();
                 fetchInvitations();
             }
 

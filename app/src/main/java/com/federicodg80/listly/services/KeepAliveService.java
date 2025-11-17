@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+// https://developer.android.com/develop/background-work/services/fgs
+// https://developer.android.com/develop/ui/views/notifications/channels
 public class KeepAliveService extends Service {
 
     private static final String CHANNEL_ID = "keep_alive_channel";

@@ -25,6 +25,9 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+// https://developers.google.com/identity/android-credential-manager
+// https://firebase.google.com/docs/auth/android/google-signin
+// https://developer.android.com/training/basics/intents/result
 public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;

@@ -25,6 +25,10 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.List;
 import java.util.Map;
 
+// https://firebase.google.com/docs/cloud-messaging/receive-messages?platform=android
+// https://firebase.google.com/docs/cloud-messaging/receive-messages?platform=android#handling_messages
+// https://developer.android.com/develop/ui/views/notifications/build-notification
+// https://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo#importance
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FCMService";

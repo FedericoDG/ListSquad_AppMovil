@@ -6,6 +6,7 @@ import com.federicodg80.listly.api.ApiClient;
 import com.federicodg80.listly.api.ApiService;
 import com.federicodg80.listly.api.list.TaskListDetails;
 import com.federicodg80.listly.api.list.TaskListMessage;
+import com.federicodg80.listly.api.list.TaskListMessage;
 import com.federicodg80.listly.api.list.TaskListRequest;
 import com.federicodg80.listly.models.Item;
 import com.federicodg80.listly.models.TaskList;
@@ -116,6 +117,33 @@ public class ListRepository {
                             callback.onSuccess(response.body());
                         } else {
                             String errorMsg = "Error desconocido";
+                            try {
+                                if (response.errorBody() != null) {
+                                    errorMsg = response.errorBody().string();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            callback.onError(errorMsg);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<TaskListMessage> call, @NonNull Throwable t) {
+                        callback.onError(t.getMessage());
+                    }
+                });
+    }
+
+    public void deleteList(String token, int listId, ListRepository.RemoveCollaboratorCallback callback) {
+        api.deleteList("Bearer " + token, listId)
+                .enqueue(new Callback<TaskListMessage>() {
+                    @Override
+                    public void onResponse(@NonNull Call<TaskListMessage> call, @NonNull Response<TaskListMessage> response) {
+                        if (response.isSuccessful()) {
+                            callback.onSuccess(response.body());
+                        } else {
+                            String errorMsg = "Error desconocido - Código: " + response.code();
                             try {
                                 if (response.errorBody() != null) {
                                     errorMsg = response.errorBody().string();

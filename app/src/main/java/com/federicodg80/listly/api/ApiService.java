@@ -55,6 +55,9 @@ public interface ApiService {
             @Path("collaboratorId") String collaboratorId
     );
 
+    @DELETE("lists/{listId}")
+    Call<TaskListMessage> deleteList(@Header("Authorization") String token, @Path("listId") int listId);
+
     @POST("lists/{listId}/items")
     Call<Item> addItemToList(@Header("Authorization") String token, @Path("listId") int listId, @Body Item item);
 
